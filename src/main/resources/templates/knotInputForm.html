@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>EingabeFormular</title>
+
+    <style>
+
+        .headline {
+        margin-top: px;
+        margin-left: 30px;
+        background-color: grey;
+        width: 400px;
+        height: 100px;
+        float: left;
+        border-radius: 5px;
+        }
+
+        .headline2 {
+        margin-bottom
+        }
+
+        .inputBox {
+        margin-top: 80px;
+        margin-left: 30px;
+        background-color: #D3D3D3;
+        width: 400px;
+        height: 500px;
+        border-radius: 5px;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+    <div class="headline">
+        <center><h1>Vorgang eingeben</h1></center>
+    </div>
+    <div class="headline2">
+        <center><h4><em>- Bitte geben Sie alle nötigen Daten ein. -</em></h4></center>
+    </div>
+    <div class="inputBox">
+        <form method="post" action="eingabe" th:object="${knotEingabe}">
+            <div>
+                <label>Vorgangsnummer: * </label>
+                <input th:field="*{operationNumber}" type="number">
+            </div>
+            <div>
+                <label>Vorgangsbezeichnung: * </label>
+                <input th:field="*{operationDescription}" type="text">
+            </div>
+            <div>
+                <label>Dauer in Minuten: * </label>
+                <input th:field="*{durationInMinutes}" type="number">
+            </div>
+            <div>
+                <label>Vorgänger 1: </label>
+                <input th:field="*{predecessorOneListIndex}" type="number">
+            </div>
+            <div>
+                <label>Vorgänger 2: </label>
+                <input th:field="*{predecessorTwoListIndex}" type="number">
+            </div>
+            <div>
+                <label>Vorgänger 3: </label>
+                <input th:field="*{predecessorThreeListIndex}" type="number">
+            </div>
+
+        </form>
+        <button type="submit">Speichern</button>
+        <button type="submit">Löschen</button>
+        <button type="submit">Netzplan erstellen</button>
+
+    </div>
+</body>
+</html>

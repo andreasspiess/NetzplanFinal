@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Startseite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Dancing+Script:wght@400;500;600;700&family=Hurricane&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+        font-family: 'Baloo Bhaijaan 2', cursive;
+        }
+
+        .Headline {
+        background-color: grey;
+        width; 50px;
+        }
+
+        .leftBox {
+        margin-top: 80px;
+        margin-left: 30px;
+        background-color: #D3D3D3;
+        width: 400px;
+        height: 500px;
+        float: left;
+        border-radius: 20px;
+
+        }
+
+        .rightBox {
+        margin-top: 80px;
+        margin-left: 100px;
+        background-color: #D3D3D3;
+        width: 800px;
+        height: 500px;
+        float: left;
+        border-radius: 20px;
+        }
+
+        .img {
+        margin-left: 50px;
+        margin-top: 70px;
+        float: left;
+        }
+
+        .button {
+          display: inline-block;
+          border-radius: 4px;
+          background-color: green;
+          border: none;
+          color: white;
+          text-align: center;
+          font-size: 28px;
+          padding: 20px;
+          width: 790px;
+          transition: all 0.5s;
+          cursor: pointer;
+          margin: 5px;
+        }
+
+        .button span {
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          transition: 0.5s;
+        }
+
+        .button span:after {
+          content: '\00bb';
+          position: absolute;
+          opacity: 0;
+          top: 0;
+          right: -20px;
+          transition: 0.5s;
+        }
+
+        .button:hover span {
+          padding-right: 25px;
+        }
+
+        .button:hover span:after {
+          opacity: 1;
+          right: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="Headline">
+        <center><h1>Willkommen zu Ihrem Netzplan Rechner</h1></center>
+    </div>
+    <div class="leftBox">
+        <center><h2>Netzplan</h2></center>
+       <label><center><br>Der von uns, mithilfe Ihrer eingegeben Daten, erstellte Netzplan gibt Ihnen Auskunft über die Gesamtdauer des Projekts, die Pufferzeiten und den kritischen Pfad,
+           außerdem können sie alle Teilschritte übersichtlich dargestellt betrachten!<br><br>Auf diesen Seiten haben Sie die Möglichkeit sich schnell und einfach einen Netzplan erstellen zu lassen!</br></center></label>
+    </div>
+    <div class="rightBox">
+        <form method="get" action="eingabe">
+            <button class="button" style="vertical-align:middle"><span>Netzplan eingeben</span></button>
+        </form>
+        <img class="img" src="https://mubk.de/lernbereiche/infowirtschaft/ol/ablauforg/netzplan3.gif">.
+    </div>
+</body>
+</html>
