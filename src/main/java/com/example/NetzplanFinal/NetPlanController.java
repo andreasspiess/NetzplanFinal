@@ -42,37 +42,35 @@ public class NetPlanController {
     }
 
     public List<Knot> convertKnotInputFormListToKnotList(List<KnotInputForm> knotInputFormList) {
+        List<Knot> result = new ArrayList<>();
 
-    List<Knot> resultList = new ArrayList<>();
+        for (KnotInputForm inputForm : knotInputFormList) {
+            Knot tempKnot = new Knot(inputForm.getOperationNumber(), inputForm.getOperationDescription(), inputForm.getDurationInMinutes());
+            result.add(tempKnot);
 
-    for (KnotInputForm knotInputForm : knotInputFormList) {
-        Knot knot = new Knot(knotInputForm.getOperationNumber(), knotInputForm.getOperationDescription(), knotInputForm.getDurationInMinutes());
-        resultList.add(knot);
-
-        if (knotInputForm.getPredecessorOneListIndex() != null) {
-            knot.getPredecessor().add(resultList.get(knotInputForm.getPredecessorOneListIndex()));
-            resultList.get(knotInputForm.getPredecessorOneListIndex()).getPredecessor().add(knot);
+            if (inputForm.getPredecessorOneListIndex() != null) {
+                tempKnot.getPredecessor().add(result.get(inputForm.getPredecessorOneListIndex()));
+                result.get(inputForm.getPredecessorOneListIndex()).getSuccessor().add(tempKnot);
+            }
+            if (inputForm.getPredecessorTwoListIndex() != null) {
+                tempKnot.getPredecessor().add(result.get(inputForm.getPredecessorTwoListIndex()));
+                result.get(inputForm.getPredecessorTwoListIndex()).getSuccessor().add(tempKnot);
+            }
+            if (inputForm.getPredecessorThreeListIndex() != null) {
+                tempKnot.getPredecessor().add(result.get(inputForm.getPredecessorThreeListIndex()));
+                result.get(inputForm.getPredecessorThreeListIndex()).getSuccessor().add(tempKnot);
+            }
         }
-        if (knotInputForm.getPredecessorTwoListIndex() != null) {
-            knot.getPredecessor().add(resultList.get(knotInputForm.getPredecessorTwoListIndex()));
-            resultList.get(knotInputForm.getPredecessorTwoListIndex()).getPredecessor().add(knot);
-        }
-        if (knotInputForm.getPredecessorThreeListIndex() != null) {
-            knot.getPredecessor().add(resultList.get(knotInputForm.getPredecessorThreeListIndex()));
-            resultList.get(knotInputForm.getPredecessorThreeListIndex()).getPredecessor().add(knot);
-        }
-    }
-    return resultList;
+        return result;
     }
 
-    private List<Knot> calculateNetplanResults(List<Knot> knots) {
+    private void calculateNetplanResults(List<Knot> knots) {
 
-        return null;
+
     }
-    // TODO: DATENTYP??
-    private List<Knot> validateNotTwoEnd (List<Knot> knotList, BindingResult bindingResult) {
 
-        return null;
+    private void validateNotTwoEnd (List<Knot> knotList, BindingResult bindingResult) {
+
     }
     //TODO: DATENTYP??
     private KnotInputForm validate(KnotInputForm knotInputForm, BindingResult bindingResult) {

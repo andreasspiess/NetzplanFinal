@@ -7,34 +7,20 @@ public class Knot {
     private int operationNumber;
     private String operationDescription;
     private int durationInMinutes;
-    private int earliestStart;
-    private int earliestEnd;
     private int latestStart;
     private int latestEnd;
     private int totalBuffer;
     private int freeBuffer;
 
-    private List<Knot> successor = new ArrayList<>();
-    private List<Knot> predecessor = new ArrayList<>();
+    public List<Knot> successor = new ArrayList<>();
+    public List<Knot> predecessor = new ArrayList<>();
+
+    //Predecessor = VORGÄNGER!!
 
     public void calculateEarliestTime(int earliestTime) {
-        if (this.predecessor.size() > 0) {
-            Knot result = this.predecessor.get(0);
-            for (Knot predecessor : this.predecessor) {
-                if (result.getEarliestEnd() < predecessor.getEarliestEnd()) {
-                    result = predecessor;
-                }
-            }
-            this.setEarliestStart(result.getEarliestEnd());
-            this.setEarliestEnd(result.earliestStart + this.durationInMinutes);
-        }else {
-            this.setEarliestEnd(this.durationInMinutes);
-        }
-        if (this.successor.size() > 0) {
-            for (Knot successor : this.successor) {
-                successor.calculateEarliestTime(this.getEarliestEnd());
-            }
-        }
+
+
+
     }
 
 
@@ -59,8 +45,6 @@ public class Knot {
         this.operationNumber = operationNumber;
         this.operationDescription = operationDescription;
         this.durationInMinutes = durationInMinutes;
-        this.earliestStart = earliestStart;
-        this.earliestEnd = earliestEnd;
         this.latestStart = latestStart;
         this.latestEnd = latestEnd;
         this.totalBuffer = totalBuffer;
@@ -71,6 +55,13 @@ public class Knot {
         this.operationNumber = operationNumber;
         this.operationDescription = operationDescription;
         this.durationInMinutes = durationInMinutes;
+    }
+
+    public Knot(int operationNumber, String operationDescription, int durationInMinutes, List<Knot> predecessor) {
+        this.operationNumber = operationNumber;
+        this.operationDescription = operationDescription;
+        this.durationInMinutes = durationInMinutes;
+        this.predecessor = predecessor;
     }
 
     public Knot(int operationNumber, String operationDescription, int durationInMinutes, List<Knot> successor, List<Knot> predecessor) {
@@ -87,11 +78,14 @@ public class Knot {
         this.durationInMinutes = durationInMinutes;
         this.successor = successor;
         this.predecessor = predecessor;
-        this.earliestStart = earliestStart;
-        this.earliestEnd = earliestEnd;
+
     }
 
     public Knot(int operationNumber, String operationDescription, int durationInMinutes) {
+        this.operationNumber = operationNumber;
+        this.operationDescription = operationDescription;
+        this.durationInMinutes = durationInMinutes;
+
     }
 
     public int getOperationNumber() {
@@ -117,22 +111,26 @@ public class Knot {
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
-
+    // Predecessor = Vorgänger
+    // Den größten Wert (Frühester Endzeitpunkt) von allen Vorgängern nehmen
     public int getEarliestStart() {
-        return earliestStart;
-    }
+        int result = 0;
+        // für jeden Vorgänger in der Liste
+        for (Knot knot : this.getPredecessor()) {
+            int fez = knot.getEarliestEnd();
+            if (result < fez) {
+                result = fez;
+            }
+        }
+        return result;
 
-    public void setEarliestStart(int earliestStart) {
-        this.earliestStart = earliestStart;
     }
-
+    // (spätester Endzeitpunkt)
     public int getEarliestEnd() {
-        return earliestEnd;
+        return this.getEarliestStart() + this.durationInMinutes;
     }
 
-    public void setEarliestEnd(int earliestEnd) {
-        this.earliestEnd = earliestEnd;
-    }
+
 
     public int getLatestStart() {
         return latestStart;
