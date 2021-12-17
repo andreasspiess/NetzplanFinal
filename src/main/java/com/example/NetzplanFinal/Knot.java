@@ -7,46 +7,84 @@ public class Knot {
     private int operationNumber;
     private String operationDescription;
     private int durationInMinutes;
-    private int latestStart;
-    private int latestEnd;
     private int totalBuffer;
     private int freeBuffer;
 
     public List<Knot> successor = new ArrayList<>();
     public List<Knot> predecessor = new ArrayList<>();
 
-    //Predecessor = VORGÄNGER!!
+    //frühester Startzeitpunkt
+    // Predecessor = Vorgänger
+    // Den größten Wert (Frühester Endzeitpunkt) von allen Vorgängern nehmen
+    public int getEarliestStart() {
+        int result = 0;
+        // für jeden Vorgänger in der Liste
+        for (Knot knot : this.getPredecessor()) {
+            // jede Einheit wird mit dem result verglichen, der größte Wert wird genommen.
+            int fez = knot.getEarliestEnd();
+            if (result < fez) {
+                result = fez;
+            }
+        }
+        return result;
 
-    public void calculateEarliestTime(int earliestTime) {
-
-
-
+    }
+    // (frühester Endzeitpunkt)
+    public int getEarliestEnd() {
+        return this.getEarliestStart() + this.durationInMinutes;
     }
 
 
-    public static List<Knot> calculateCriticalPath() {
-
-
-
-        return null;
+    // spätester Startzeitpunkt
+    public int getLatestStart() {
+        return getLatestEnd() - durationInMinutes;
     }
 
-    public static List<Knot> calculateLatestTime() {
 
-        return null;
+    // spätester Endzeitpunkt
+    public int getLatestEnd() {
+        //Fall 1
+        int result = Integer.MAX_VALUE;
+        if (this.successor.size() == 0) {
+            int sezFinish = this.getEarliestEnd();
+            return sezFinish;
+        } else {
+            for (int i=0; i < getSuccessor().size(); i++) {
+                Knot successor = getSuccessor().get(i);
+
+                int successorSAZ = successor.getLatestStart();
+
+                if (successorSAZ < result) {
+                    result = successorSAZ;
+                }
+            }
+        }
+        return result;
+    }
+    //  Berechnen Gesammt Puffer
+    public int caclulateTotalBuffer() {
+        int totalBuffer = this.getLatestStart() - this.getEarliestStart();
+
+        return totalBuffer;
     }
 
-    public static List<Knot> calculateBuffer() {
-
-        return null;
+    public int calculateFreeBuffer() {
+        int freeBuffer = 0;
+        if (this.successor.size() != 0) {
+            int successorEarliestStart = successor.get(0).getEarliestStart();
+            freeBuffer = successorEarliestStart - this.getEarliestEnd();
+        } else {
+            return 0;
+        }
+        return freeBuffer;
     }
+
 
     public Knot(int operationNumber, String operationDescription, int durationInMinutes, int earliestStart, int earliestEnd, int latestStart, int latestEnd, int totalBuffer, int freeBuffer, List<Knot> successorList, List<Knot> predecessorList) {
         this.operationNumber = operationNumber;
         this.operationDescription = operationDescription;
         this.durationInMinutes = durationInMinutes;
-        this.latestStart = latestStart;
-        this.latestEnd = latestEnd;
+
         this.totalBuffer = totalBuffer;
         this.freeBuffer = freeBuffer;
     }
@@ -107,45 +145,8 @@ public class Knot {
     public int getDurationInMinutes() {
         return durationInMinutes;
     }
-
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
-    }
-    // Predecessor = Vorgänger
-    // Den größten Wert (Frühester Endzeitpunkt) von allen Vorgängern nehmen
-    public int getEarliestStart() {
-        int result = 0;
-        // für jeden Vorgänger in der Liste
-        for (Knot knot : this.getPredecessor()) {
-            int fez = knot.getEarliestEnd();
-            if (result < fez) {
-                result = fez;
-            }
-        }
-        return result;
-
-    }
-    // (spätester Endzeitpunkt)
-    public int getEarliestEnd() {
-        return this.getEarliestStart() + this.durationInMinutes;
-    }
-
-
-
-    public int getLatestStart() {
-        return latestStart;
-    }
-
-    public void setLatestStart(int latestStart) {
-        this.latestStart = latestStart;
-    }
-
-    public int getLatestEnd() {
-        return latestEnd;
-    }
-
-    public void setLatestEnd(int latestEnd) {
-        this.latestEnd = latestEnd;
     }
 
     public int getTotalBuffer() {

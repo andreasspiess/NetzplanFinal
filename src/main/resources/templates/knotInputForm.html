@@ -21,10 +21,6 @@
         border-radius: 5px;
         }
 
-        .headline2 {
-        margin-bottom: 10px;
-        }
-
         .inputBox {
         margin-top: 80px;
         margin-left: 30px;
@@ -32,6 +28,49 @@
         width: 400px;
         height: 500px;
         border-radius: 5px;
+        }
+
+        .button {
+        font-family: 'Baloo Bhaijaan 2', cursive;
+        display: inline-block;
+        border-radius: 20px;
+        background-color: red;
+        border: none;
+        color: white;
+        text-align: center;
+        font-size: 15px;
+        padding: 20px;
+        width: 100px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+        margin-top: 15px;
+        margin-left: 15px;
+        }
+
+        .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+        }
+
+        .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+        }
+
+        .button:hover span {
+         padding-right: 25px;
+        }
+
+        .button:hover span:after {
+         opacity: 1;
+         right: 0;
         }
 
     </style>
@@ -45,7 +84,7 @@
         <form method="post" action="eingabe" th:object="${knotEingabe}">
             <div>
                 <label>Vorgangsnummer: </label>
-                <input th:field="*{operationNumber}" type="number">
+                <input class="input1" th:field="*{operationNumber}" type="number">
                 <label>*</label>
             </div>
             <br>
@@ -76,10 +115,10 @@
                 <input th:field="*{predecessorThreeListIndex}" type="number">
             </div>
 
+            <button class="button" type="submit">Speichern</button>
+            <button class="button" type="submit">Löschen</button>
+            <button class="button" type="submit">Netzplan erstellen</button>
         </form>
-        <button class="buttonSave" type="submit">Speichern</button>
-        <button class="buttonDelete" type="submit">Löschen</button>
-        <button class="buttonNetzplanCreate" type="submit">Netzplan erstellen</button>
 
     </div>
 </body>
