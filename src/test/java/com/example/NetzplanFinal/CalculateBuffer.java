@@ -76,16 +76,16 @@ public class CalculateBuffer {
         knot8.getSuccessor().add(knot10);
         knot9.getSuccessor().add(knot10);
 
-        Assertions.assertEquals(0, knot10.getFreeBuffer());
+        Assertions.assertEquals(0, knot10.calculateFreeBuffer());
         //Assertions.assertEquals();
-        Assertions.assertEquals(14, knot9.getFreeBuffer());
-        Assertions.assertEquals(0, knot8.getFreeBuffer());
-        Assertions.assertEquals(0, knot7.getFreeBuffer());
-        Assertions.assertEquals(0, knot6.getFreeBuffer());
-        Assertions.assertEquals(2, knot5.getFreeBuffer());
-        Assertions.assertEquals(0, knot4.getFreeBuffer());
-        Assertions.assertEquals(6, knot3.getFreeBuffer());
-        Assertions.assertEquals(0, knot1.getFreeBuffer());
-        Assertions.assertEquals(0, knot1.getFreeBuffer());
+        Assertions.assertEquals(14, knot9.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot8.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot7.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot6.calculateFreeBuffer());
+        Assertions.assertEquals(2, knot5.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot4.calculateFreeBuffer());
+        Assertions.assertEquals(6, knot3.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot1.calculateFreeBuffer());
+        Assertions.assertEquals(0, knot1.calculateFreeBuffer());
     }
 }

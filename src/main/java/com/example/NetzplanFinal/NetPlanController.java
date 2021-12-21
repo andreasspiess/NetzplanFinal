@@ -26,12 +26,27 @@ public class NetPlanController {
     @GetMapping("eingabe")
     public String getKnotInputForm(Model model) {
         model.addAttribute("knotEingabe", new KnotInputForm());
+        model.addAttribute("knotList", knotList);
+
         return "knotInputForm";
     }
 
     @PostMapping("eingabe")
     public String saveKnotInputForm(@Valid KnotInputForm knotInputForm, BindingResult bindingResult, Model model) {
+        Knot knotToSave = new Knot(knotInputForm.getOperationNumber(), knotInputForm.getOperationDescription(), knotInputForm.getDurationInMinutes());
+        if (knotInputForm.getPredecessorOneListIndex() != null) {
+            knotToSave.setPredecessor((List<Knot>) knotList.get(knotInputForm.getPredecessorOneListIndex()));
+        }
+        if (knotInputForm.getPredecessorTwoListIndex() != null) {
+            knotToSave.setPredecessor((List<Knot>) knotList.get(knotInputForm.getPredecessorTwoListIndex()));
+        }
+        if (knotInputForm.getPredecessorThreeListIndex() != null) {
+            knotToSave.setPredecessor((List<Knot>) knotList.get(knotInputForm.getPredecessorThreeListIndex()));
+        }
+        knotList.add(knotToSave);
         model.addAttribute("knotEingabe", new KnotInputForm());
+        model.addAttribute("knotList", knotList);
+        System.out.println(knotList);
         return "knotInputForm";
     }
 

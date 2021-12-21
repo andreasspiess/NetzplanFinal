@@ -79,6 +79,33 @@ public class Knot {
         return freeBuffer;
     }
 
+    public List<Knot> calculateCriticalPath() {
+        List<Knot> criticalPath = new ArrayList<>();
+        Knot criticalKnot = this;
+        // Start ist der Knoten, der kein Nachfolger hat. -> 10
+        if (successor.isEmpty()) {
+            criticalPath.add(criticalKnot);
+
+            while (!criticalKnot.getPredecessor().isEmpty())
+                // alle Vorgänger prüfen (max. 3), ob der Wert total- und freier Puffer 0 beträgt.
+                for (int i = 0; i < criticalKnot.getPredecessor().size(); i++) {
+                    if (criticalKnot.getPredecessor().get(i).caclulateTotalBuffer() == 0 && criticalKnot.getPredecessor().get(i).calculateFreeBuffer() == 0) {
+                        // Knoten wird der Liste hinzugefügt.
+                        criticalKnot = criticalKnot.getPredecessor().get(i);
+                        criticalPath.add(criticalKnot);
+                    }
+                }
+            }
+        return criticalPath;
+    }
+
+    public Knot(int operationNumber, String operationDescription, int durationInMinutes, int totalBuffer, int freeBuffer) {
+        this.operationNumber = operationNumber;
+        this.operationDescription = operationDescription;
+        this.durationInMinutes = durationInMinutes;
+        this.totalBuffer = totalBuffer;
+        this.freeBuffer = freeBuffer;
+    }
 
     public Knot(int operationNumber, String operationDescription, int durationInMinutes, int earliestStart, int earliestEnd, int latestStart, int latestEnd, int totalBuffer, int freeBuffer, List<Knot> successorList, List<Knot> predecessorList) {
         this.operationNumber = operationNumber;
@@ -177,5 +204,22 @@ public class Knot {
     }
 
     public void setPredecessorList(List<Knot> predecessor) {
+    }
+
+    @Override
+    public String toString() {
+        return "Knot{" +
+                "operationNumber=" + operationNumber +
+                ", operationDescription='" + operationDescription + '\'' +
+                ", durationInMinutes=" + durationInMinutes +
+                ", totalBuffer=" + totalBuffer +
+                ", freeBuffer=" + freeBuffer +
+//                ", successor=" + successor +
+//                ", predecessor=" + predecessor +
+                '}';
+    }
+
+    public void setPredecessor(List<Knot> predecessor) {
+        this.predecessor = predecessor;
     }
 }
