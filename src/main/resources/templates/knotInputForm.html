@@ -14,19 +14,38 @@
 
         .headline {
         margin-left: 30px;
+        margin-top: 30px;
         background-color: grey;
         width: 400px;
         height: 100px;
-        float: left;
         border-radius: 5px;
+        float: left;
+        }
+
+        .headline2 {
+        margin-left: 120px;
+        margin-top: 30px;
+        background-color: grey;
+        width: 830px;
+        height: 100px;
+        border-radius: 5px;
+        float: left;
         }
 
         .inputBox {
-        margin-top: 80px;
-        margin-left: 30px;
         background-color: #D3D3D3;
         width: 400px;
+        height: 450px;
+        border-radius: 5px;
+        float: left;
+        }
+
+        .rightBox {
+        margin-left: 550px;
+        background-color: #D3D3D3;
+        width: 830px;
         height: 500px;
+        float: left;
         border-radius: 5px;
         }
 
@@ -79,7 +98,38 @@
 
         .buttonNetzplanErstellen {
         background-color: green;
+        }
 
+        .container1 {
+        float: left;
+        margin-right: 50px;
+        }
+
+        .table {
+        font-size: 20px;
+        }
+
+        th {
+        width: 10rem;
+        }
+
+        td {
+        width: 10rem;
+        }
+
+        .td-Nr {
+        width: 3rem;
+        padding-left: 60px;
+        }
+
+        .td-Dr {
+        width: 10rem;
+        }
+
+        .td-i {
+        background-color: red;
+        width: 50rem;
+        padding-left: 60px;
         }
 
 
@@ -87,11 +137,12 @@
     </style>
 </head>
 <body>
+
     <div class="headline">
         <center><h1>Vorgang eingeben</h1></center>
-        <h4><em>- Bitte geben Sie alle nötigen Daten ein. -</em></h4>
-    </div>
+
     <div class="inputBox">
+        <br>
         <form method="post" action="eingabe" th:object="${knotEingabe}">
             <div>
                 <label>Vorgangsnummer: </label>
@@ -116,8 +167,8 @@
                 <select  th:field="*{predecessorOneListIndex}">
                     <option th:value="${null}"> </option>
                     <option th:each="predecessor : ${knotInputFormList}"
-                            th:text="${knot.operationNumber + ' ' + knot.operationDescription}"
-                            th:value="${knotInputFormList.indexOf(knot)}">
+                            th:text="${predecessor.operationNumber + ' ' + predecessor.operationDescription}"
+                            th:value="${knotInputFormList.indexOf(predecessor)}">
                     </option>
                 </select>
             </div>
@@ -127,8 +178,8 @@
                 <select  th:field="*{predecessorTwoListIndex}">
                     <option th:value="${null}"> </option>
                     <option th:each="predecessor : ${knotInputFormList}"
-                            th:text="${knot.operationNumber + ' ' + knot.operationDescription}"
-                            th:value="${knotInputFormList.indexOf(knot)}">
+                            th:text="${predecessor.operationNumber + ' ' + predecessor.operationDescription}"
+                            th:value="${knotInputFormList.indexOf(predecessor)}">
                 </option>
             </select>
             </div>
@@ -138,19 +189,48 @@
                 <select  th:field="*{predecessorThreeListIndex}">
                     <option th:value="${null}"> </option>
                     <option th:each="predecessor : ${knotInputFormList}"
-                            th:text="${knot.operationNumber + ' ' + knot.operationDescription}"
-                            th:value="${knotInputFormList.indexOf(knot)}">
+                            th:text="${predecessor.operationNumber + ' ' + predecessor.operationDescription}"
+                            th:value="${knotInputFormList.indexOf(predecessor)}">
                     </option>
                 </select>
             </div>
-
-            <button class="button buttonSpeichern" style="vertical-align:middle"><span>Speichern</span></button>
-            <button class="button buttonLöschen" style="vertical-align:middle"><span>Löschen</span></button>
-            <button class="button buttonNetzplanErstellen" style="vertical-align:middle"><span>Netzplan erstellen</span></button>
+            <button class="button buttonSpeichern" type="submit" style="vertical-align:middle"><span>Speichern</span></button>
+            <button class="button buttonLöschen" type="reset" style="vertical-align:middle"><span>Löschen</span></button>
 
 
+
+            <button class="button buttonNetzplanErstellen" type="button" onclick="location.href='http://localhost:8080/netzplanTabelle'"> <span>Netzplan erstellen</span></button>
         </form>
 
+
+    </div>
+    </div>
+        <div class="headline2">
+            <center><label><h1>Übersicht der eingegebenen Daten</h1></label></center>
+        </div>
+
+    <div class="rightBox">
+        <table>
+            <thead class="table">
+            <th>Nr.</th>
+            <th>Bezeichnung</th>
+            <th>Dauer</th>
+            <th>Vorgänger1</th>
+            <th>Vorgänger2</th>
+            <th>Vorgänger3</th>
+            </thead>
+            <tbody class="table">
+                <tr th:each="knot : ${knotInputFormList}">
+                    <td class="td-Nr" th:text="${knot.operationNumber}"></td>
+                    <td class="td-Dr" th:text="${knot.operationDescription}"></td>
+                    <td class="td-Nr" th:text="${knot.durationInMinutes}"></td>
+                    <td class="td-Nr" th:text="${knot.predecessorOneListIndex}"></td>
+                    <td class="td-Nr" th:text="${knot.predecessorTwoListIndex}"></td>
+                    <td class="td-Nr" th:text="${knot.predecessorThreeListIndex}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     </div>
 </body>
 </html>

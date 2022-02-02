@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Tabellenausgabe</title>
+    <style>
+
+        body {
+        font-family: 'Baloo Bhaijaan 2', cursive;
+        }
+
+        .headline {
+        margin-left: 100px;
+        margin-top: 30px;
+        background-color: grey;
+        width: 1300px;
+        height: 100px;
+        border-radius: 5px;
+        float: left;
+        }
+
+        .tableBox {
+        margin-left: 100px;
+        background-color: #D3D3D3;
+        width: 1300px;
+        height: 500px;
+        float: left;
+        border-radius: 5px;
+        }
+
+        .table {
+        font-size: 20px;
+        }
+
+        th {
+        width: 10rem;
+        }
+
+        td {
+        width: 10rem;
+        }
+
+        .td-Nr {
+        width: 3rem;
+        padding-left: 70px;
+        }
+
+        .td-Dr {
+        width: 10rem;
+        }
+
+
+    </style>
 </head>
 <body>
+        <div class="headline" >
+            <label><center><h1>Dein Netzplan</h1></center></label>
+        </div>
+        <div class="tableBox">
+            <table>
+                <thead>
+                <th>Nr.</th>
+                <th>Bezeichnung</th>
+                <th>Dauer</th>
+                <th>Vorgänger</th>
+                <th>Nachfolger</th>
+                <th>Freier Puffer</th>
+                <th>Gesammt Puffer</th>
+                <th>Frühester Anfangszeitpunkt</th>
+                <th>Frühestesr Endzeitpunkt</th>
+                <th>Spätester Anfangszeitpunkt</th>
+                <th>Spätester Endzeitpunkt</th>
+                </thead>
+            <tbody>
+            <tr th:each="knot : ${knotList}">
+                <td th:text="${knot.getOperationNumber}"></td>
+                <td class="td-Dr" th:text="${knot.getOperationDescription}"></td>
+                <td class="td-Nr" th:text="${knot.getDurationInMinutes}"></td>
+                <td class="td-Dr" th:text="${knot.getPredecessor}"></td>
+                <td class="td-Dr" th:text="${knot.getSuccessor}"></td>
+                <td class="td-Nr" th:text="${knot.getFreeBuffer}"></td>
+                <td class="td-Nr" th:text="${knot.getTotalBuffer}"></td>
+                <td class="td-Nr" th:text="${knot.getEarliestStart}"></td>
+                <td class="td-Nr" th:text="${knot.getEarliestEnd}"></td>
+                <td class="td-Nr" th:text="${knot.getLatestStart}"></td>
+                <td class="td-Nr" th:text="${knot.getLatestEnd}"></td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+
+
+
 
 </body>
 </html>

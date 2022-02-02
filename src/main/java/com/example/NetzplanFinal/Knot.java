@@ -13,6 +13,7 @@ public class Knot {
     public List<Knot> successor = new ArrayList<>();
     public List<Knot> predecessor = new ArrayList<>();
 
+
     //frühester Startzeitpunkt
     // Predecessor = Vorgänger
     // Den größten Wert (Frühester Endzeitpunkt) von allen Vorgängern nehmen
@@ -208,15 +209,8 @@ public class Knot {
 
     @Override
     public String toString() {
-        return "Knot{" +
-                "operationNumber=" + operationNumber +
-                ", operationDescription='" + operationDescription + '\'' +
-                ", durationInMinutes=" + durationInMinutes +
-                ", totalBuffer=" + totalBuffer +
-                ", freeBuffer=" + freeBuffer +
-//                ", successor=" + successor +
-//                ", predecessor=" + predecessor +
-                '}';
+        return operationDescription;
+
     }
 
     public void setPredecessor(List<Knot> predecessor) {
